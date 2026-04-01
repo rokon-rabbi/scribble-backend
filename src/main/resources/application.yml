@@ -1,0 +1,45 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/scribble
+    username: ${DB_USERNAME:scribble}
+    password: ${DB_PASSWORD:scribble}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      timeout: 2000ms
+
+jwt:
+  secret: ${JWT_SECRET:your-256-bit-secret-key-change-in-production}
+  expiration-ms: 86400000
+
+game:
+  defaults:
+    max-players: 8
+    rounds-per-player: 2
+    turn-time-seconds: 80
+    word-choices: 3
+  scoring:
+    max-guesser-points: 100
+    drawer-points-per-guess: 20
