@@ -34,6 +34,27 @@ jwt:
   secret: ${JWT_SECRET:your-256-bit-secret-key-change-in-production}
   expiration-ms: 86400000
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+      show-components: always
+
+logging:
+  pattern:
+    console: "%d{ISO8601} [%X{correlationId:-}] [%thread] %-5level %logger{36} - %msg%n"
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+
 game:
   defaults:
     max-players: 8

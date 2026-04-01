@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.scribble.auth.AuthControllerIntegrationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-04-01T19:21:13.476Z" hostname="rokon" time="1.461">
+  <properties/>
+  <testcase name="shouldRejectInvalidLogin()" classname="com.scribble.auth.AuthControllerIntegrationTest" time="0.784"/>
+  <testcase name="shouldRejectDuplicateUsername()" classname="com.scribble.auth.AuthControllerIntegrationTest" time="0.436"/>
+  <testcase name="shouldRegisterAndLogin()" classname="com.scribble.auth.AuthControllerIntegrationTest" time="0.236"/>
+  <system-out><![CDATA[2026-04-02 01:21:13,414 [] [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.scribble.auth.AuthControllerIntegrationTest]: AuthControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-04-02 01:21:13,460 [] [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.scribble.ScribbleApplication for test class com.scribble.auth.AuthControllerIntegrationTest
+2026-04-02 01:21:13,785 [] [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-02 01:21:13,785 [] [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-02 01:21:13,789 [] [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

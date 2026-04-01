@@ -1,12 +1,9 @@
 package com.scribble;
 
+import com.scribble.testconfig.IntegrationTestBase;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest
-@ActiveProfiles("test")
-class ScribbleApplicationTests {
+class ScribbleApplicationTests extends IntegrationTestBase {
 
     @Test
     void contextLoads() {

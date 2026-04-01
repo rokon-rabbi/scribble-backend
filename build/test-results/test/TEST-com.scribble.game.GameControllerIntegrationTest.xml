@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.scribble.game.GameControllerIntegrationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-04-01T19:21:15.013Z" hostname="rokon" time="1.26">
+  <properties/>
+  <testcase name="shouldRejectUnauthenticatedRoomCreation()" classname="com.scribble.game.GameControllerIntegrationTest" time="0.187"/>
+  <testcase name="shouldCreateRoom()" classname="com.scribble.game.GameControllerIntegrationTest" time="0.784"/>
+  <testcase name="shouldListPublicRooms()" classname="com.scribble.game.GameControllerIntegrationTest" time="0.284"/>
+  <system-out><![CDATA[2026-04-02 01:21:14,944 [] [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.scribble.game.GameControllerIntegrationTest]: GameControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-04-02 01:21:14,997 [] [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.scribble.ScribbleApplication for test class com.scribble.game.GameControllerIntegrationTest
+2026-04-02 01:21:15,971 [058bda4f] [http-nio-auto-1-exec-9] INFO  com.scribble.game.GameService - Room D733PN created by player gametest17009176951816
+2026-04-02 01:21:16,132 [f659351c] [http-nio-auto-1-exec-1] INFO  com.scribble.game.GameService - Room JLMWYU created by player gametest17009960598777
+2026-04-02 01:21:16,252 [b5969d77] [http-nio-auto-1-exec-2] WARN  o.s.d.w.c.SpringDataJacksonConfiguration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
