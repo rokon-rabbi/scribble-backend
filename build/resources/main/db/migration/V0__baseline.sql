@@ -1,0 +1,2 @@
+-- Baseline migration - project bootstrap
+-- Actual schema migrations will be added in Step 2
