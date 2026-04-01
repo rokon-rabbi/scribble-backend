@@ -14,6 +14,7 @@ import com.scribble.round.dto.RoundStartEvent;
 import com.scribble.websocket.dto.GameStartMessage;
 import com.scribble.websocket.dto.WordChoiceMessage;
 import com.scribble.score.ScoreService;
+import com.scribble.stroke.StrokeService;
 import com.scribble.word.Word;
 import com.scribble.word.WordRepository;
 import com.scribble.word.WordService;
@@ -46,6 +47,7 @@ public class GameFlowService {
     private final WordService wordService;
     private final WordRepository wordRepository;
     private final ScoreService scoreService;
+    private final StrokeService strokeService;
     private final RedisTemplate<String, String> redisTemplate;
     private final SimpMessagingTemplate messagingTemplate;
 
@@ -308,11 +310,14 @@ public class GameFlowService {
                     "scores", roundScores
                 ));
 
+        // Flush strokes from Redis to PostgreSQL
+        int strokeCount = strokeService.flushStrokesToDatabase(roomCode, round.getId());
+
         // Clear round-specific Redis state
         redisTemplate.opsForHash().delete(roomKey, "currentWord", "turnStartedAt", "correctGuessers");
 
-        log.info("Round {} ended in room {}, word was '{}', {} scores recorded",
-                round.getRoundNumber(), roomCode, currentWord, roundScores.size());
+        log.info("Round {} ended in room {}, word was '{}', {} scores, {} strokes persisted",
+                round.getRoundNumber(), roomCode, currentWord, roundScores.size(), strokeCount);
 
         // Schedule next round after 5-second delay
         timerExecutor.schedule(() -> startNextRound(roomCode), 5, TimeUnit.SECONDS);
