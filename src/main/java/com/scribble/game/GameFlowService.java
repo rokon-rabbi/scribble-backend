@@ -13,6 +13,7 @@ import com.scribble.round.dto.RoundEndEvent;
 import com.scribble.round.dto.RoundStartEvent;
 import com.scribble.websocket.dto.GameStartMessage;
 import com.scribble.websocket.dto.WordChoiceMessage;
+import com.scribble.score.ScoreService;
 import com.scribble.word.Word;
 import com.scribble.word.WordRepository;
 import com.scribble.word.WordService;
@@ -44,6 +45,7 @@ public class GameFlowService {
     private final PlayerRepository playerRepository;
     private final WordService wordService;
     private final WordRepository wordRepository;
+    private final ScoreService scoreService;
     private final RedisTemplate<String, String> redisTemplate;
     private final SimpMessagingTemplate messagingTemplate;
 
@@ -291,19 +293,26 @@ public class GameFlowService {
         String currentWord = (String) redisTemplate.opsForHash().get(roomKey, "currentWord");
         if (currentWord == null) currentWord = "???";
 
-        // Broadcast round_end with word reveal
+        // Calculate and persist scores
+        long turnTimeMs = getTurnTimeMs(roomCode);
+        List<Map<String, Object>> roundScores = scoreService.calculateAndPersistRoundScores(
+                round, roomCode, turnTimeMs);
+
+        // Broadcast round_end with word reveal + scores
         messagingTemplate.convertAndSend(
                 "/topic/room/" + roomCode + "/game",
                 Map.of(
                     "event", "round_end",
                     "roundNumber", round.getRoundNumber(),
-                    "correctWord", currentWord
+                    "correctWord", currentWord,
+                    "scores", roundScores
                 ));
 
         // Clear round-specific Redis state
         redisTemplate.opsForHash().delete(roomKey, "currentWord", "turnStartedAt", "correctGuessers");
 
-        log.info("Round {} ended in room {}, word was '{}'", round.getRoundNumber(), roomCode, currentWord);
+        log.info("Round {} ended in room {}, word was '{}', {} scores recorded",
+                round.getRoundNumber(), roomCode, currentWord, roundScores.size());
 
         // Schedule next round after 5-second delay
         timerExecutor.schedule(() -> startNextRound(roomCode), 5, TimeUnit.SECONDS);
